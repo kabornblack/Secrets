@@ -26,8 +26,8 @@ mongoose.connect(dbURI, {
 
 const userSchema = {
   email: String,
-  passWord: String,
-  repassWord: String
+  password: String,
+  repassword: String
 };
 
 const User = new mongoose.model("User", userSchema);
@@ -46,9 +46,9 @@ app.get("/register", function(req, res) {
 
 app.post("/register", function(req, res) {
   const newUser = new User ({
-    email: req.body.email,
-    passWord: req.body.password,
-    repassWord: req.body.repassword
+    email: req.body.username,
+    password: req.body.password,
+    repassword: req.body.repassword
   });
   newUser.save()
   .then((registered) => {
@@ -58,6 +58,34 @@ app.post("/register", function(req, res) {
     res.send(err);
   })
 });
+
+app.post("/login", function(req, res) {
+  const email = req.body.username;
+  const password = req.body.password;
+
+  User.findOne({ email: email })
+    .then(foundUser => {
+      if (foundUser && foundUser.password === password) {
+        res.render("secrets");
+      } else {
+        res.send("Invalid credentials. Please try again.");
+      }
+    })
+    .catch(err => {
+      res.send(err);
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 
