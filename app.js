@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require('mongoose');
+const encrypt = require("mongoose-encryption");
 
 const app = express();
 
@@ -24,11 +25,13 @@ mongoose.connect(dbURI, {
   console.error("Error connecting to MongoDB:", err);
 });
 
-const userSchema = {
+const userSchema = new mongoose.Schema({
   email: String,
   password: String,
-  repassword: String
-};
+});
+
+const secret = "ThisIsMyLittleSecrets.";
+userSchema.plugin(encrypt, { secret: secret, encryptedFields: ["password"] });
 
 const User = new mongoose.model("User", userSchema);
 
@@ -47,8 +50,7 @@ app.get("/register", function(req, res) {
 app.post("/register", function(req, res) {
   const newUser = new User ({
     email: req.body.username,
-    password: req.body.password,
-    repassword: req.body.repassword
+    password: req.body.password
   });
   newUser.save()
   .then((registered) => {
