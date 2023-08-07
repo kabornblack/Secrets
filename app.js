@@ -73,18 +73,23 @@ app.post("/login", function(req, res) {
 
   User.findOne({ email: email })
     .then(foundUser => {
-      if (foundUser && foundUser.password === password) {
-        res.render("secrets");
+      if (foundUser) {
+        // Use bcrypt.compare to check the provided password against the hashed password
+        bcrypt.compare(password, foundUser.password, function(err, result) {
+          if (result === true) {
+            res.render("secrets"); // Render the secrets page upon successful login
+          } else {
+            res.send("Invalid credentials. Please try again.");
+          }
+        });
       } else {
-        res.send("Invalid credentials. Please try again.");
+        res.send("User not found. Please register.");
       }
     })
     .catch(err => {
-      res.send(err);
+      res.send(err); // Handle any error that occurs during login
     });
 });
-
-
 
 
 
