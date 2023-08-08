@@ -5,3 +5,4 @@ Level 1: Register users with Username and Password and login with the credential
 Level 2: Database encryption using mongoose-encryption
 Level 3: Hashing password using MD5
 Level 4: Salt and hashing passwords with bcrypt
+Level 5: Using Passport.js to add cookies and sessions
