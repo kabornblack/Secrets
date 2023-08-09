@@ -1,5 +1,5 @@
 # Secrets - Secure User Authentication and Authorization
-All levels of Authentication.  Secrets Vault is a web application that allows users to securely authenticate, register, and access a community-driven collection of secrets and anonymous confessions. It provides a platform where users can share their secrets while ensuring privacy and anonymity.
+All levels of Authentication.  Secrets Vault is a web application that allows users to securely authenticate, register, and access a community-driven collection of secrets and anonymous confessions. It provides a platform where users can share their secrets while ensuring privacy and anonymity. This project is inspired by the whisper App (www.whisper.sh)
 
 # Features: 
 User Authentication: Seamlessly authenticate users using a combination of local authentication and Google OAuth 2.0. The user's identity is managed using Passport.js, ensuring a secure and reliable authentication process.
