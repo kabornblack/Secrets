@@ -36,6 +36,8 @@ EJS (Embedded JavaScript): For rendering dynamic HTML templates.
 
 Google OAuth 2.0: For secure and streamlined third-party authentication.
 
+Facebook authentication strategy for passport.
+
 Express-Session: For managing user sessions and login status.
 
 # Contribution: 
