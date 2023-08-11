@@ -7,6 +7,7 @@ const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 
 const app = express();
@@ -68,13 +69,26 @@ passport.deserializeUser(function(id, done) {
 
 
 passport.use(new GoogleStrategy({
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:3000/auth/google/secrets",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
+
+passport.use(new FacebookStrategy({
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: "http://localhost:3000/auth/facebook/secrets",
+    userProfileURL: "https://www.facebookapis.com/oauth2/v3/userinfo"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
       return cb(err, user);
     });
   }
@@ -92,6 +106,16 @@ app.get("/auth/google/secrets",
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect secrets.
+    res.redirect('/secrets');
+  });
+
+  app.get("/auth/facebook", (req, res) => {
+  passport.authenticate("facebook")(req, res)});
+
+app.get('/auth/facebook/secrets',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
     res.redirect('/secrets');
   });
 
@@ -125,8 +149,6 @@ app.get("/submit", (req, res) => {
 
 app.post("/submit", (req, res) => {
   const submittedSecret = req.body.secret;
-
-  console.log(req.user.id);
 
   User.findById(req.user.id)
     .then((foundUser) => {
