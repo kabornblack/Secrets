@@ -1,7 +1,7 @@
 # Secrets - Secure User Authentication and Authorization
 All levels of Authentication.  Secrets Vault is a web application that allows users to securely authenticate, register, and access a community-driven collection of secrets and anonymous confessions. It provides a platform where users can share their secrets while ensuring privacy and anonymity. This project is inspired by the whisper App (www.whisper.sh)
 
-# Features: 
+## Features: 
 User Authentication: Seamlessly authenticate users using a combination of local authentication and Google OAuth 2.0. The user's identity is managed using Passport.js, ensuring a secure and reliable authentication process.
 
 User Registration: Users can create an account by registering with a unique username and password. Passwords are securely hashed and stored using Mongoose and Passport-Local-Mongoose, ensuring data privacy.
@@ -14,7 +14,7 @@ User Authorization: Implement robust user authorization logic to control access 
 
 Session Management: Manage user sessions and ensure that user login status is maintained across different pages. The Express-Session middleware is used for effective session management.
 
-# Installation and Usage: 
+## Installation and Usage: 
 Clone the repository to your local machine.
 
 Install the required dependencies by running npm install.
@@ -25,7 +25,7 @@ Launch the application using the command node app.js.
 
 Access the application in your web browser at http://localhost:3000.
 
-# Technologies Used: 
+## Technologies Used: 
 Node.js and Express.js: For building the server-side application and handling routes.
 
 Passport.js: For implementing user authentication and authorization strategies.
@@ -40,6 +40,6 @@ Facebook paasport authentication strategy for streamlined third-party authentica
 
 Express-Session: For managing user sessions and login status.
 
-# Contribution: 
+## Contribution: 
 Contributions to the project are welcome! If you find any issues, have suggestions for improvements, or want to add new features, feel free to submit a pull request.
 
